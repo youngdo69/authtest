@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+
+    <style>
+        /* Style for login form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eee;
+        }
+
+        #login-form {
+            margin: 50px auto;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Style for main UI */
+        #main-ui {
+            display: none;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-form">
+        <h2>Login</h2>
+        <form>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit" id="login-button">Login</button>
+        </form>
+    </div>
+
+    <div id="main-ui">
+        <h2>Main UI</h2>
+        <!-- Your main UI code here -->
+    </div>
+
+    <script>
+        // Get references to the login form and the main UI
+        const loginForm = document.querySelector('#login-form');
+        const mainUi = document.querySelector('#main-ui');
+
+        // Hide the main UI by default
+        mainUi.style.display = 'none';
+
+        // Add event listener for login form submission
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Get the username and password values from the form
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+
+            // Send a POST request to the authentication endpoint
+            const response = await fetch('/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            // Parse the response JSON and check if authentication was successful
+            const data = await response.json();
+            if (data.success) {
+                // Show the main UI and hide the login form
+                loginForm.style.display = 'none';
+                mainUi.style.display = 'block';
+            } else {
+                // Display an error message if authentication failed
+                alert('Invalid username or password');
+            }
+        });
+
+    </script>
+</body>
+
+</html>
