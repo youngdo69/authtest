@@ -1,1 +1,1 @@
-abababAB 
+abababA
