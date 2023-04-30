@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authentication</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
         /* Style for login form */
         body {
@@ -70,42 +70,17 @@
     </div>
 
     <script>
-        // Get references to the login form and the main UI
-        const loginForm = document.querySelector('#login-form');
-        const mainUi = document.querySelector('#main-ui');
-
-        // Hide the main UI by default
-        mainUi.style.display = 'none';
-
-        // Add event listener for login form submission
-        loginForm.addEventListener('submit', async (event) => {
+        $('#login-button').click(function (event) {
             event.preventDefault();
-
-            // Get the username and password values from the form
-            const username = document.querySelector('#username').value;
-            const password = document.querySelector('#password').value;
-
-            // Send a POST request to the authentication endpoint
-            const response = await fetch('/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
-
-            // Parse the response JSON and check if authentication was successful
-            const data = await response.json();
-            if (data.success) {
-                // Show the main UI and hide the login form
-                loginForm.style.display = 'none';
-                mainUi.style.display = 'block';
+            if ($('#username').val() == 'bmc' && $('#password').val() == 'bmc1234') {
+                $('#login-form').hide();
+                $('#main-ui').show();
             } else {
-                // Display an error message if authentication failed
                 alert('Invalid username or password');
             }
+           
         });
-
+       
     </script>
 </body>
 

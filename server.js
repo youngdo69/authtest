@@ -29,3 +29,10 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+const db;
+app.get('/detail/:id', (req, res) => {
+  db.collection('post').findOne({_id: parseInt(req.params.id)}, (err, result) => {   
+    console.log(result);
+    res.render('detail.ejs', {data: result}); 
+}) // {$inc: {total: 1}}
